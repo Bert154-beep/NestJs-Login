@@ -23,7 +23,6 @@ export class JwtStrategy extends PassportStrategy(
     
     async validate(payload: {sub: number, email: string}){
         const user = await this.userModel.findOne({_id: payload.sub}).select('-password')
-
         return user;
         
     }

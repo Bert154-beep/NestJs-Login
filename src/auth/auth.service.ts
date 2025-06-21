@@ -1,4 +1,4 @@
-import { BadRequestException, Body, ConflictException, ForbiddenException, Injectable } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Injectable } from "@nestjs/common";
 import { AuthDto } from "./dto";
 import { ConfigService } from "@nestjs/config";
 import * as bcrypt from 'bcryptjs'
@@ -32,6 +32,8 @@ export class AuthService{
 
             const SavedUser = await newUser.save();
 
+            return {message: "User Registered!"}
+
         } catch (error) {
             console.log("An Error Occured!", error)
             throw new BadRequestException("Sign Up Failed! Try Again")
@@ -60,7 +62,7 @@ export class AuthService{
 
     async signToken(
         userId: number,
-        email: string,
+        email: string
     ): Promise<{access_token: string}>{
         const payload = {
             sub: userId,
